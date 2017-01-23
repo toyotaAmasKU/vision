@@ -1,1 +1,4 @@
 *_rtw
+*.autosave
+*.elf
+*.original
