@@ -8,7 +8,7 @@ function getColorPX()
     global vmax;
     global smin;
     global smax;
-    init_inrange();
+    load_inrange();
     cam = webcam('USB2.0 VGA UVC WebCam');
     
     width = 640;
@@ -17,26 +17,34 @@ function getColorPX()
     while true	
         img = snapshot(cam);
         hsv = rgb2hsv(img);
+        
+        result = inrange_input(hsv,hmin,hmax,smin,smax,vmin,vmax);
+        figure(2);
+        imshow(result);
+        
         figure(1); 
         imshow(hsv);
+        
+        
         [col, row, btn] = ginput(1);
-       
-        if btn == 114
-            init_inrange();
-        end   
                
-        if ~(0 <= row(1) && row(1) <= height && 0 <= col(1) && col(1) <= width) && ~(btn == 114)
+        if ~(0 <= row(1) && row(1) <= height && 0 <= col(1) && col(1) <= width) && btn == 1
             continue
         end
 
         row = int16(row);
         col = int16(col);
         
-        if ~(btn == 114)
+        if btn == 'r'
+            reset_inrange();
+        elseif btn == 's'
+            save inrange.mat hmin hmax smin smax vmin vmax -v7.3;
+        elseif btn == 'l'
+            load_inrange();
+        else
             h = hsv(row, col, 1);
             s = hsv(row, col, 2);
             v = hsv(row, col, 3);
-        
         
             if h <= hmin
                 hmin = h;
@@ -56,16 +64,33 @@ function getColorPX()
             if v >= vmax
                 vmax = v;
             end
+            
+            fprintf('==========\n%d %d\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n',col,row,h,s,v,hmax,smax,vmax,hmin,smin,vmin);
         end
         
-        fprintf('==========\n%d %d\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n',col,row,h,s,v,hmax,smax,vmax,hmin,smin,vmin);
-        result = inrange_input(hsv,hmin,hmax,smin,smax,vmin,vmax);
-        figure(2);
-        imshow(result);
+        
+        
     end
 end
 
-function init_inrange()
+function load_inrange()
+    inrange = matfile('inrange.mat');
+    global hmin;
+    global hmax;
+    global vmin;
+    global vmax;
+    global smin;
+    global smax;
+    disp('init_inrange');
+    hmin = inrange.hmin;
+    hmax = inrange.hmax;
+    vmin = inrange.vmin;
+    vmax = inrange.vmax;
+    smin = inrange.smin;
+    smax = inrange.smax;
+end
+
+function reset_inrange()
     global hmin;
     global hmax;
     global vmin;
