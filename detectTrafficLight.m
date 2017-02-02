@@ -9,7 +9,7 @@ function detectTrafficLight()
         disp(rpi.BoardName);
         disp(cam.Name)
     end
-    
+
     function led(n)
         for i = 1:n
             writeLED(rpi,'led0',1)
@@ -22,7 +22,6 @@ function detectTrafficLight()
     function initialize()
         led(4)
     end
-    
     function vision()
         cam.Rotation = 270;
         cam.HorizontalFlip = true;
