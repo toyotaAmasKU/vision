@@ -19,14 +19,14 @@ function com_getColorPX()
     width = 320;
     height = 240;
     
-    cam.Rotation = 270;
+%     cam.Rotation = 270;
     cam.HorizontalFlip = true;
     while true	
         
         img = snapshot(cam); 
         hsv = rgb2hsv(img);
         
-        result = inrange_input(hsv,hmin,hmax,smin,smax,vmin,vmax);
+        result = inrange_input(hsv,hmin(size(hmin,2)),hmax(size(hmax,2)),smin(size(smin,2)),smax(size(smax,2)),vmin(size(vmin,2)),vmax(size(vmax,2)));
         figure(2);
         imshow(result);
         
@@ -46,34 +46,47 @@ function com_getColorPX()
         if btn == 'r'
             reset_inrange();
         elseif btn == 's'
-            save inrange.mat hmin hmax smin smax vmin vmax -v7.3;
+            h_min = hmin(size(hmin,2));
+            h_max = hmax(size(hmax,2));
+            s_min = smin(size(smin,2));
+            s_max = smax(size(smax,2));
+            v_min = vmin(size(vmin,2));
+            v_max = vmax(size(vmax,2));
+            save inrange.mat h_min h_max s_min s_max v_min v_max -v7.3;
         elseif btn == 'l'
             load_inrange();
+        elseif btn == 'u'
+            undo_inrange();
+        elseif btn == 29
+            continue;
         else
             h = hsv(row, col, 1);
             s = hsv(row, col, 2);
             v = hsv(row, col, 3);
         
-            if h <= hmin
-                hmin = h;
+            if h <= hmin(size(hmin,2))
+                hmin(size(hmin,2)+1) = h;
             end
-            if h >= hmax
-                hmax = h;
+            if h >= hmax(size(hmax,2))
+                hmax(size(hmax,2)+1) = h;
             end
-            if s <= smin
-                smin = s;
+            if s <= smin(size(smin,2))
+                smin(size(smin,2)+1) = s;
             end
-            if s >= smax
-                smax = s;
+            if s >= smax(size(smax,2))
+                smax(size(smax,2)+1) = s;
             end
-            if v <= vmin
-                vmin = v;
+            if v <= vmin(size(vmin,2))
+                vmin(size(vmin,2)+1) = v;
             end
-            if v >= vmax
-                vmax = v;
+            if v >= vmax(size(vmax,2))
+                vmax(size(vmax,2)+1) = v;
             end
             
-            fprintf('==========\n%d %d\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n',col,row,h,s,v,hmax,smax,vmax,hmin,smin,vmin);
+            fprintf('==========\n%d %d\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n',col,row,h,s,v,hmax(size(hmax,2)),...
+                                                                                            smax(size(smax,2)),vmax(size(vmax,2)),...
+                                                                                            hmin(size(hmin,2)),smin(size(smin,2)),...
+                                                                                            vmin(size(vmin,2)));
         end        
     end
 end
@@ -94,12 +107,12 @@ function load_inrange()
     global smin;
     global smax;
     disp('init_inrange');
-    hmin = inrange.hmin;
-    hmax = inrange.hmax;
-    vmin = inrange.vmin;
-    vmax = inrange.vmax;
-    smin = inrange.smin;
-    smax = inrange.smax;
+    hmin(size(hmin,2)+1) = inrange.hmin;
+    hmax(size(hmax,2)+1) = inrange.hmax;
+    vmin(size(vmin,2)+1) = inrange.vmin;
+    vmax(size(vmax,2)+1) = inrange.vmax;
+    smin(size(smin,2)+1) = inrange.smin;
+    smax(size(smax,2)+1) = inrange.smax;
 end
 
 function reset_inrange()
@@ -110,10 +123,28 @@ function reset_inrange()
     global smin;
     global smax;
     disp('reset_inrange');
-    hmin = 1;
-    hmax = 0;
-    vmin = 1;
-    vmax = 0;
-    smin = 1;
-    smax = 0;
+    hmin(size(hmin,2)+1) = 1;
+    hmax(size(hmax,2)+1) = 0;
+    vmin(size(vmin,2)+1) = 1;
+    vmax(size(vmax,2)+1) = 0;
+    smin(size(smin,2)+1) = 1;
+    smax(size(smax,2)+1) = 0;
+end
+
+function undo_inrange()
+    global hmin;
+    global hmax;
+    global vmin;
+    global vmax;
+    global smin;
+    global smax;
+    disp('undo_inrange');
+    if size(hmin,2) > 1
+        hmin(size(hmin,2)) = [];
+        hmax(size(hmax,2)) = [];
+        vmin(size(vmin,2)) = [];
+        vmax(size(vmax,2)) = [];
+        smin(size(smin,2)) = [];
+        smax(size(smax,2)) = [];
+    end
 end
