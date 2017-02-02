@@ -1,19 +1,19 @@
 % Author : Supakit Kriangkhajorn
 % Follow : skconan
 
-function pi_getColorPX()
+function com_getColorPX()
     global hmin;
     global hmax;
     global vmin;
     global vmax;
     global smin;
     global smax;
+    
     load_inrange();
     ip = '192.168.1.118';
     username = 'pi';
     password = 'raspberry';
-    
-%   main
+   
     [rpi,cam] = connection(ip,username,password);
     
     width = 320;
@@ -74,10 +74,7 @@ function pi_getColorPX()
             end
             
             fprintf('==========\n%d %d\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n %.2f %.2f %.2f\n',col,row,h,s,v,hmax,smax,vmax,hmin,smin,vmin);
-        end
-        
-        
-        
+        end        
     end
 end
 
@@ -112,7 +109,7 @@ function reset_inrange()
     global vmax;
     global smin;
     global smax;
-    disp('init_inrange');
+    disp('reset_inrange');
     hmin = 1;
     hmax = 0;
     vmin = 1;
