@@ -2,6 +2,7 @@ Author : Supakit Kriangkhajorn, 2016
 
 Follow me : skconan   
 
+
 Main File :
   
     Raspberry pi : pi_send_video.slx
@@ -9,25 +10,24 @@ Main File :
     Computer :  com_getColorPX.m
                 com_detect_red_circle.slx
                 
-How to run a program :
+How to run program :
     
-      1. Before run a program
+      1. Before run program
+         In pi_send_video.slx and com_detect_red_circle.slx file. You need to set IP address 
+    and port of UDP block then deploy pi_send_video program to raspberry pi.
+         In com_getColorPX.m file. You need to change value of variable(ip, username, and password) 
+    for connect your raspberry pi.
     
-         In pi_send_video.slx and com_detect_red_circle.slx file. You need to setting IP address 
-    and port of UDP block and deploy pi_send_video program to raspberry pi.
-         In com_getColorPX.m. You need to change ip ,username and password variable value for 
-    connect your raspberry pi.
+      2. Run com_getColorPX.m file for getting the value of color range that you want to detect. 
+    The program have many commands following:
+        - Click left mouse button > Getting the value of color range from mouse position in image.
+        - Press right arrow button > Next frame.
+        - Press s button > Save the value of color range to inrange.mat.
+        - Press l button > Load the value of color range from inrange.mat.
+        - Press r button > Reset the value of color range.
+        - Press u button > Undo the value of color range.
     
-      2. Run com_getColorPX.m file for get range color that you want to detect. The program 
-    have many commands follow this:
-        - click left mouse button > Get color from mouse position in only image.
-        - press left arrow button > Next frame.
-        - press s button > Save color range value to inrange.mat.
-        - press l button > Load color range value from inrange.mat.
-        - press r button > Reset color range.
-        - press u button > Undo color range.
-    
-      3. On workspace in MATLAB, run command load('inrange.mat').
-      4. Run com_detect_circle.slx file for detect circle. 
+      3. Run command "load('inrange.mat')" On workspace in MATLAB, .
+      4. Run com_detect_circle.slx file for detecting circle. 
   
 Thank you.
