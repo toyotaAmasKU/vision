@@ -1,11 +1,6 @@
 Author : Supakit Kriangkhajorn, 2016
 
-Follow me : skconan
-
-
-Detect traffic light for AMAS-MBD 2016
-  
-    Send video data via udp port from raspberry pi to computer and process detect red circle program on computer.    
+Follow me : skconan   
 
 Main File :
   
