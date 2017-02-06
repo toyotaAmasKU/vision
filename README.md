@@ -18,9 +18,9 @@ How to run a program :
     
       1. Before run a program
     
-      In pi_send_video.slx and com_detect_red_circle.slx file. You need to setting IP address 
-    and port of UDP block, deploy pi_send_video program to raspberry pi.
-      In com_getColorPX.m. You need to change ip ,username and password variable value for 
+         In pi_send_video.slx and com_detect_red_circle.slx file. You need to setting IP address 
+    and port of UDP block and deploy pi_send_video program to raspberry pi.
+         In com_getColorPX.m. You need to change ip ,username and password variable value for 
     connect your raspberry pi.
     
       2. Run com_getColorPX.m file for get range color that you want to detect. The program 
