@@ -1,7 +1,7 @@
 % Author : Supakit Kriangkhajorn
 % Follow : skconan
 
-function com_getColorPX()
+function com_getColor_green()
     global hmin;
     global hmax;
     global vmin;
@@ -49,13 +49,13 @@ function com_getColorPX()
         if btn == 'r'
             reset_inrange();
         elseif btn == 's'
-            h_min_r = hmin(size(hmin,2));
-            h_max_r = hmax(size(hmax,2));
-            s_min_r = smin(size(smin,2));
-            s_max_r = smax(size(smax,2));
-            v_min_r = vmin(size(vmin,2));
-            v_max_r = vmax(size(vmax,2));
-            save inrange_r.mat h_min_r h_max_r s_min_r s_max_r v_min_r v_max_r radius -v7.3;
+            h_min_g = hmin(size(hmin,2));
+            h_max_g = hmax(size(hmax,2));
+            s_min_g = smin(size(smin,2));
+            s_max_g = smax(size(smax,2));
+            v_min_g = vmin(size(vmin,2));
+            v_max_g = vmax(size(vmax,2));
+            save inrange_g.mat h_min_g h_max_g s_min_g s_max_g v_min_g v_max_g radius -v7.3;
         elseif btn == 'l'
             load_inrange();
         elseif btn == 'u'
@@ -106,7 +106,7 @@ function [rpi,cam] = connection(ip,username,password)
 end
     
 function load_inrange()
-    inrange = matfile('inrange_r.mat');
+    inrange = matfile('inrange_g.mat');
     global hmin;
     global hmax;
     global vmin;
@@ -114,12 +114,12 @@ function load_inrange()
     global smin;
     global smax;
     disp('init_inrange');
-    hmin(size(hmin,2)+1) = inrange.h_min_r;
-    hmax(size(hmax,2)+1) = inrange.h_max_r;
-    vmin(size(vmin,2)+1) = inrange.v_min_r;
-    vmax(size(vmax,2)+1) = inrange.v_max_r;
-    smin(size(smin,2)+1) = inrange.s_min_r;
-    smax(size(smax,2)+1) = inrange.s_max_r;
+    hmin(size(hmin,2)+1) = inrange.h_min_g;
+    hmax(size(hmax,2)+1) = inrange.h_max_g;
+    vmin(size(vmin,2)+1) = inrange.v_min_g;
+    vmax(size(vmax,2)+1) = inrange.v_max_g;
+    smin(size(smin,2)+1) = inrange.s_min_g;
+    smax(size(smax,2)+1) = inrange.s_max_g;
 end
 
 function reset_inrange()

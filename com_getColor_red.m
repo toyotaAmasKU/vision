@@ -1,7 +1,7 @@
 % Author : Supakit Kriangkhajorn
 % Follow : skconan
 
-function com_getColorPX()
+function com_getColor_red()
     global hmin;
     global hmax;
     global vmin;
